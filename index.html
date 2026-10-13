@@ -149,38 +149,6 @@ body.ready h1 .ch { opacity: 1; transform: none; }
   max-width: 36em;
 }
 
-.meta {
-  margin-top: 28px;
-  padding-top: 22px;
-  border-top: 1px solid var(--line);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 12px;
-}
-.meta a {
-  position: relative;
-  font-family: var(--mono);
-  font-size: 13px;
-  color: var(--ink-2);
-  text-decoration: none;
-  padding: 5px 13px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  overflow: hidden;
-  transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
-}
-.meta a::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--accent-soft);
-  transform: translateY(101%);
-  transition: transform 0.45s var(--ease);
-  z-index: -1;
-}
-.meta a:hover { color: var(--accent); border-color: var(--accent); }
-.meta a:hover::after { transform: none; }
-
 /* ── 双栏 ── */
 .cols {
   display: grid;
@@ -481,11 +449,6 @@ footer a:hover { color: var(--accent); border-color: var(--accent); }
 <header class="masthead">
   <h1 id="title">赵兄休得胡言</h1>
   <p class="tagline reveal" style="--d:120ms">年过四十五，对社会贡献不大；好在还有这片自留地，种点字，留个念想。</p>
-  <nav class="meta reveal" style="--d:220ms">
-    <a href="https://github.com/ztow">github.com/ztow</a>
-    <a href="https://ztow.me/">ztow.me</a>
-    <a href="https://ztow.me/feed.xml">rss</a>
-  </nav>
 </header>
 
 <div class="cols">
