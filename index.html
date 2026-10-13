@@ -71,9 +71,14 @@ a.item:hover .name { color: var(--link); }
   border-radius: 999px;
 }
 .links a:hover { color: var(--link); border-color: var(--link); }
-footer { margin-top: 64px; font-size: 13px; color: var(--text-2); }
+<footer { margin-top: 64px; font-size: 13px; color: var(--text-2); }
 footer a { color: var(--text-2); text-decoration: none; border-bottom: 1px solid var(--border); }
 footer a:hover { color: var(--link); }
+.posts .title { font-size: 15px; flex: 1; }
+.posts .date { font-size: 13px; color: var(--text-2); font-variant-numeric: tabular-nums; }
+.posts .feed-note { font-size: 13px; color: var(--text-2); margin-top: 12px; }
+.posts .feed-note a { color: var(--text-2); text-decoration: none; border-bottom: 1px solid var(--border); }
+.posts .feed-note a:hover { color: var(--link); }
 @media (max-width: 520px) {
   body { padding: 44px 18px; }
   a.item { flex-wrap: wrap; gap: 4px; }
@@ -133,9 +138,80 @@ footer a:hover { color: var(--link); }
 </ul>
 </section>
 
+<section>
+<h2>近期文章</h2>
+<ul class="posts" id="posts">
+  <li><a class="item" href="https://ztow.me/"><span class="title">载入中…</span></a></li>
+</ul>
+<p class="feed-note" id="feed-note">来源 <a href="https://ztow.me/feed.xml">ztow.me/feed.xml</a></p>
+</section>
+
 <footer>
   <a href="https://github.com/ztow/ztow.github.io">本页源码</a>
 </footer>
+
+<script>
+(function () {
+  var FEED = 'https://ztow.me/feed.xml';
+  var MAX = 5;
+  var list = document.getElementById('posts');
+
+  function fmtDate(s) {
+    var d = new Date(s);
+    if (isNaN(d)) return '';
+    return d.getFullYear() + '.' + ('0' + (d.getMonth() + 1)).slice(-2) + '.' + ('0' + d.getDate()).slice(-2);
+  }
+
+  function render(items) {
+    list.innerHTML = '';
+    items.slice(0, MAX).forEach(function (it) {
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.className = 'item';
+      a.href = it.link;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      var t = document.createElement('span');
+      t.className = 'title';
+      t.textContent = it.title;
+      var d = document.createElement('span');
+      d.className = 'date';
+      d.textContent = fmtDate(it.date);
+      a.appendChild(t);
+      a.appendChild(d);
+      li.appendChild(a);
+      list.appendChild(li);
+    });
+  }
+
+  function fallback() {
+    list.innerHTML = '<li><a class="item" href="https://ztow.me/"><span class="title">文章列表加载失败，点此前往博客</span></a></li>';
+  }
+
+  fetch(FEED)
+    .then(function (r) { return r.text(); })
+    .then(function (txt) {
+      var doc = new DOMParser().parseFromString(txt, 'application/xml');
+      var nodes = doc.querySelectorAll('item');
+      var items = [];
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i];
+        var title = n.querySelector('title');
+        var link = n.querySelector('link');
+        var date = n.querySelector('pubDate');
+        if (!title || !link) continue;
+        items.push({
+          title: (title.textContent || '').trim(),
+          link: (link.textContent || '').trim(),
+          date: date ? date.textContent.trim() : ''
+        });
+      }
+      if (!items.length) return fallback();
+      render(items);
+    })
+    .catch(fallback);
+})();
+</script>
 
 </body>
 </html>
