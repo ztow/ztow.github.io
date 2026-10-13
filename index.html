@@ -362,6 +362,22 @@ body.ready h1 .ch { opacity: 1; transform: none; }
               background 0.4s var(--ease);
 }
 
+/* ── 页脚 ── */
+footer {
+  margin-top: 96px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--ink-3);
+}
+footer a { color: var(--ink-3); text-decoration: none; border-bottom: 1px solid var(--line-2); transition: color 0.3s, border-color 0.3s; }
+footer a:hover { color: var(--accent); border-color: var(--accent); }
+footer .copy { margin-left: auto; letter-spacing: 0.08em; }
+
 /* ── 载入与降级 ── */
 .skeleton {
   padding: 15px 0 15px 16px;
@@ -516,6 +532,12 @@ body.ready h1 .ch { opacity: 1; transform: none; }
 </section>
 
 </div>
+
+<footer>
+  <a href="mailto:zhaotowei@gmail.com">zhaotowei@gmail.com</a>
+  <a href="https://ztow.me/">blog</a>
+  <span class="copy">ztow</span>
+</footer>
 
 </div>
 
