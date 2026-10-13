@@ -3,189 +3,362 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>赵兄休得胡言</title>
-<meta name="description" content="赵伟（ztow）的个人主页与项目索引。">
+<title>赵兄休得胡言 · ztow</title>
+<meta name="description" content="赵伟（ztow）的个人主页：开源项目与近期文章。">
 <style>
 :root {
-  --bg: #ffffff;
-  --text: #1a1a1a;
-  --text-2: #5f5e5a;
-  --border: rgba(0, 0, 0, 0.1);
-  --card: #faf9f7;
-  --link: #0a58ca;
+  --bg: #fbfaf8;
+  --ink: #16161a;
+  --ink-2: #55555f;
+  --ink-3: #8f8f99;
+  --line: rgba(0, 0, 0, 0.09);
+  --line-2: rgba(0, 0, 0, 0.16);
+  --hover: #b4441f;
+  --sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
+          "Microsoft YaHei", "Source Han Sans SC", "Noto Sans CJK SC", sans-serif;
+  --serif: "Songti SC", "STSong", "Source Han Serif SC", "Noto Serif CJK SC",
+           Georgia, "Times New Roman", serif;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, "Cascadia Mono",
+          "Roboto Mono", monospace;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0d0d0d;
-    --text: #e8e6e3;
-    --text-2: #9a9892;
-    --border: rgba(255, 255, 255, 0.12);
-    --card: #161615;
-    --link: #7fb2ff;
+    --bg: #0d0d0f;
+    --ink: #f0efec;
+    --ink-2: #a2a2ab;
+    --ink-3: #6e6e78;
+    --line: rgba(255, 255, 255, 0.1);
+    --line-2: rgba(255, 255, 255, 0.2);
+    --hover: #e8794c;
   }
 }
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { -webkit-text-size-adjust: 100%; }
+
 body {
   background: var(--bg);
-  color: var(--text);
-  font: 400 16px/1.7 -apple-system, BlinkMacSystemFont, "SF Pro SC", "PingFang SC", "Helvetica Neue", sans-serif;
-  padding: 72px 24px;
-  max-width: 720px;
-  margin: 0 auto;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.75;
+  padding: 88px 40px 72px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-h1 { font-size: 26px; font-weight: 500; letter-spacing: -0.01em; }
-.tagline { color: var(--text-2); font-size: 15px; margin-top: 6px; }
-section { margin-top: 52px; }
-h2 {
+
+.wrap { max-width: 1120px; margin: 0 auto; }
+
+/* ── 标识区 ── */
+.masthead { margin-bottom: 72px; }
+
+h1 {
+  font-family: var(--serif);
+  font-size: 46px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  margin-bottom: 14px;
+}
+
+.tagline {
+  font-size: 16px;
+  color: var(--ink-2);
+  max-width: 40em;
+}
+
+.meta {
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+}
+
+.meta a {
+  font-family: var(--mono);
   font-size: 13px;
-  font-weight: 500;
-  color: var(--text-2);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--border);
+  color: var(--ink-2);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: color 0.18s, border-color 0.18s;
 }
-ul { list-style: none; margin-top: 6px; }
-li { border-bottom: 1px solid var(--border); }
-li:last-child { border-bottom: none; }
-a.item {
+.meta a:hover { color: var(--hover); border-bottom-color: var(--hover); }
+
+/* ── 双栏 ── */
+.cols {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 0 72px;
+  align-items: start;
+}
+
+.col-left { position: sticky; top: 88px; }
+
+.label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line-2);
+  margin-bottom: 6px;
+}
+
+/* ── 项目列表 ── */
+.proj {
+  display: block;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  color: inherit;
+  transition: padding-left 0.2s ease;
+}
+.proj:last-child { border-bottom: none; }
+
+.proj-row {
   display: flex;
   align-items: baseline;
-  gap: 12px;
-  padding: 14px 2px;
-  text-decoration: none;
-  color: var(--text);
+  gap: 9px;
 }
-a.item:hover .name { color: var(--link); }
-.name { font-size: 15px; font-weight: 500; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
-.desc { font-size: 14px; color: var(--text-2); flex: 1; }
-.star { font-size: 13px; color: var(--text-2); font-variant-numeric: tabular-nums; }
-.links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
-.links a {
+
+.proj-name {
+  font-family: var(--mono);
+  font-size: 14.5px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  word-break: break-all;
+}
+
+.proj-star {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+.proj-desc {
   font-size: 14px;
-  text-decoration: none;
-  color: var(--text);
-  border: 1px solid var(--border);
-  background: var(--card);
-  padding: 7px 14px;
-  border-radius: 999px;
+  color: var(--ink-2);
+  line-height: 1.6;
+  margin-top: 3px;
 }
-.links a:hover { color: var(--link); border-color: var(--link); }
-<footer { margin-top: 64px; font-size: 13px; color: var(--text-2); }
-footer a { color: var(--text-2); text-decoration: none; border-bottom: 1px solid var(--border); }
-footer a:hover { color: var(--link); }
-.posts .title { font-size: 15px; flex: 1; }
-.posts .date { font-size: 13px; color: var(--text-2); font-variant-numeric: tabular-nums; }
-.posts .feed-note { font-size: 13px; color: var(--text-2); margin-top: 12px; }
-.posts .feed-note a { color: var(--text-2); text-decoration: none; border-bottom: 1px solid var(--border); }
-.posts .feed-note a:hover { color: var(--link); }
-@media (max-width: 520px) {
-  body { padding: 44px 18px; }
-  a.item { flex-wrap: wrap; gap: 4px; }
-  .desc { flex-basis: 100%; }
+
+.proj:hover { padding-left: 8px; }
+.proj:hover .proj-name { color: var(--hover); }
+
+/* ── 文章列表 ── */
+.post {
+  display: grid;
+  grid-template-columns: 5.5em 1fr;
+  gap: 20px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  color: inherit;
+  transition: padding-left 0.2s ease;
+}
+.post:last-child { border-bottom: none; }
+
+.post-date {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+  padding-top: 3px;
+  white-space: nowrap;
+}
+
+.post-title {
+  font-size: 15.5px;
+  line-height: 1.6;
+}
+
+.post:hover { padding-left: 8px; }
+.post:hover .post-title { color: var(--hover); }
+
+/* ── 载入与降级 ── */
+.skeleton { padding: 15px 0; border-bottom: 1px solid var(--line); }
+.skeleton-bar {
+  height: 11px;
+  background: var(--line);
+  border-radius: 2px;
+}
+.skeleton-bar.w70 { width: 70%; }
+
+.notice {
+  font-size: 14px;
+  color: var(--ink-2);
+  padding: 15px 0;
+}
+.notice a { color: var(--hover); }
+
+/* ── 页脚 ── */
+footer {
+  margin-top: 88px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--ink-3);
+}
+footer a { color: var(--ink-3); text-decoration: none; border-bottom: 1px solid var(--line-2); }
+footer a:hover { color: var(--hover); }
+
+/* ── 响应式 ── */
+@media (max-width: 860px) {
+  body { padding: 56px 24px 56px; }
+  h1 { font-size: 36px; }
+  .masthead { margin-bottom: 52px; }
+  .cols { grid-template-columns: 1fr; gap: 52px; }
+  .col-left { position: static; }
+  .col-posts { order: -1; }
+  .post { grid-template-columns: 1fr; gap: 2px; }
+  .post-date { padding-top: 0; }
+}
+
+@media (max-width: 480px) {
+  body { padding: 40px 18px 44px; }
+  h1 { font-size: 30px; }
+  .tagline { font-size: 15px; }
+  .meta { gap: 8px 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
 }
 </style>
 </head>
 <body>
 
-<h1>赵兄休得胡言</h1>
-<p class="tagline">赵伟 · GitHub 用户名 ztow</p>
+<div class="wrap">
 
-<div class="links">
-  <a href="https://github.com/ztow">GitHub</a>
-  <a href="https://ztow.me/">博客</a>
+<header class="masthead">
+  <h1>赵兄休得胡言</h1>
+  <p class="tagline">年过四十五，对社会贡献不大；好在还有这片自留地，种点字，留个念想。</p>
+  <nav class="meta">
+    <a href="https://github.com/ztow">github.com/ztow</a>
+    <a href="https://ztow.me/">ztow.me</a>
+    <a href="https://ztow.me/feed.xml">rss</a>
+  </nav>
+</header>
+
+<div class="cols">
+
+<section class="col-left">
+  <h2 class="label">项目</h2>
+
+  <a class="proj" href="https://github.com/ztow/genshin-agent-soul">
+    <div class="proj-row">
+      <span class="proj-name">genshin-agent-soul</span>
+      <span class="proj-star">★ 4</span>
+    </div>
+    <p class="proj-desc">原神角色人格蒸馏计划，97 个角色人格文件</p>
+  </a>
+
+  <a class="proj" href="https://github.com/ztow/TrendRader">
+    <div class="proj-row">
+      <span class="proj-name">TrendRader</span>
+    </div>
+    <p class="proj-desc">AI 资讯热点聚合与舆情监控</p>
+  </a>
+
+  <a class="proj" href="https://github.com/ztow/zw-photo-organizer">
+    <div class="proj-row">
+      <span class="proj-name">zw-photo-organizer</span>
+      <span class="proj-star">★ 1</span>
+    </div>
+    <p class="proj-desc">照片自动分类整理</p>
+  </a>
+
+  <a class="proj" href="https://github.com/ztow/life-log">
+    <div class="proj-row">
+      <span class="proj-name">life-log</span>
+    </div>
+    <p class="proj-desc">每日生活记录汇总系统</p>
+  </a>
+
+  <a class="proj" href="https://github.com/ztow/zipfold">
+    <div class="proj-row">
+      <span class="proj-name">zipfold</span>
+    </div>
+    <p class="proj-desc">macOS 压缩 / 解压工具，开发中</p>
+  </a>
+</section>
+
+<section class="col-posts">
+  <h2 class="label">近期文章</h2>
+
+  <div id="posts">
+    <div class="skeleton"><div class="skeleton-bar w70"></div></div>
+    <div class="skeleton"><div class="skeleton-bar"></div></div>
+    <div class="skeleton"><div class="skeleton-bar w70"></div></div>
+  </div>
+
+  <noscript>
+    <p class="notice">文章列表需启用 JavaScript。<a href="https://ztow.me/">前往博客 →</a></p>
+  </noscript>
+</section>
+
 </div>
-
-<section>
-<h2>项目</h2>
-<ul>
-  <li><a class="item" href="https://github.com/ztow/genshin-agent-soul">
-    <span class="name">genshin-agent-soul</span>
-    <span class="desc">原神角色人格蒸馏计划，97 个角色人格文件</span>
-    <span class="star">★ 4</span>
-  </a></li>
-  <li><a class="item" href="https://github.com/ztow/TrendRader">
-    <span class="name">TrendRader</span>
-    <span class="desc">AI 资讯热点聚合与舆情监控</span>
-    <span class="star"></span>
-  </a></li>
-  <li><a class="item" href="https://github.com/ztow/zw-photo-organizer">
-    <span class="name">zw-photo-organizer</span>
-    <span class="desc">照片自动分类整理</span>
-    <span class="star">★ 1</span>
-  </a></li>
-  <li><a class="item" href="https://github.com/ztow/life-log">
-    <span class="name">life-log</span>
-    <span class="desc">每日生活记录汇总系统</span>
-    <span class="star"></span>
-  </a></li>
-  <li><a class="item" href="https://github.com/ztow/zipfold">
-    <span class="name">zipfold</span>
-    <span class="desc">macOS 压缩 / 解压工具，开发中</span>
-    <span class="star"></span>
-  </a></li>
-</ul>
-</section>
-
-<section>
-<h2>站点</h2>
-<ul>
-  <li><a class="item" href="https://ztow.me/">
-    <span class="name">ztow.me</span>
-    <span class="desc">博客</span>
-    <span class="star"></span>
-  </a></li>
-</ul>
-</section>
-
-<section>
-<h2>近期文章</h2>
-<ul class="posts" id="posts">
-  <li><a class="item" href="https://ztow.me/"><span class="title">载入中…</span></a></li>
-</ul>
-<p class="feed-note" id="feed-note">来源 <a href="https://ztow.me/feed.xml">ztow.me/feed.xml</a></p>
-</section>
 
 <footer>
   <a href="https://github.com/ztow/ztow.github.io">本页源码</a>
 </footer>
 
+</div>
+
 <script>
 (function () {
   var FEED = 'https://ztow.me/feed.xml';
-  var MAX = 5;
-  var list = document.getElementById('posts');
+  var MAX = 10;
+  var box = document.getElementById('posts');
 
   function fmtDate(s) {
     var d = new Date(s);
     if (isNaN(d)) return '';
-    return d.getFullYear() + '.' + ('0' + (d.getMonth() + 1)).slice(-2) + '.' + ('0' + d.getDate()).slice(-2);
+    var m = '0' + (d.getMonth() + 1);
+    var day = '0' + d.getDate();
+    return d.getFullYear() + '.' + m.slice(-2) + '.' + day.slice(-2);
   }
 
   function render(items) {
-    list.innerHTML = '';
+    box.textContent = '';
+    var frag = document.createDocumentFragment();
+
     items.slice(0, MAX).forEach(function (it) {
-      var li = document.createElement('li');
       var a = document.createElement('a');
-      a.className = 'item';
+      a.className = 'post';
       a.href = it.link;
       a.target = '_blank';
       a.rel = 'noopener';
-      var t = document.createElement('span');
-      t.className = 'title';
-      t.textContent = it.title;
+
       var d = document.createElement('span');
-      d.className = 'date';
+      d.className = 'post-date';
       d.textContent = fmtDate(it.date);
-      a.appendChild(t);
+
+      var t = document.createElement('span');
+      t.className = 'post-title';
+      t.textContent = it.title;
+
       a.appendChild(d);
-      li.appendChild(a);
-      list.appendChild(li);
+      a.appendChild(t);
+      frag.appendChild(a);
     });
+
+    box.appendChild(frag);
   }
 
-  function fallback() {
-    list.innerHTML = '<li><a class="item" href="https://ztow.me/"><span class="title">文章列表加载失败，点此前往博客</span></a></li>';
+  function fail() {
+    box.innerHTML = '';
+    var p = document.createElement('p');
+    p.className = 'notice';
+    p.innerHTML = '文章列表加载失败，<a href="https://ztow.me/">前往博客 →</a>';
+    box.appendChild(p);
   }
 
   fetch(FEED)
@@ -194,6 +367,7 @@ footer a:hover { color: var(--link); }
       var doc = new DOMParser().parseFromString(txt, 'application/xml');
       var nodes = doc.querySelectorAll('item');
       var items = [];
+
       for (var i = 0; i < nodes.length; i++) {
         var n = nodes[i];
         var title = n.querySelector('title');
@@ -206,10 +380,11 @@ footer a:hover { color: var(--link); }
           date: date ? date.textContent.trim() : ''
         });
       }
-      if (!items.length) return fallback();
+
+      if (!items.length) return fail();
       render(items);
     })
-    .catch(fallback);
+    .catch(fail);
 })();
 </script>
 
