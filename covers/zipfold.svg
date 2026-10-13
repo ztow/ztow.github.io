@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" width="320" height="200">
+<rect width="320" height="200" fill="#12161c"/>
+<g fill="none" stroke="#7a9cc4" stroke-width="1.5" opacity="0.55">
+  <path d="M56 40 L104 40 L118 54 L118 156 L56 156 Z"/>
+  <path d="M104 40 L104 54 L118 54"/>
+</g>
+<path d="M118 88 L164 88 M156 80 L164 88 L156 96" fill="none" stroke="#bcd2ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<g fill="none" stroke="#7a9cc4" stroke-width="1.2" opacity="0.35">
+  <path d="M68 116 L104 116"/>
+  <path d="M68 128 L96 128"/>
+  <path d="M68 140 L88 140"/>
+</g>
+<g fill="none" stroke="#bcd2ee" stroke-width="1.4" opacity="0.5">
+  <path d="M200 62 L200 118"/>
+  <path d="M200 62 L212 62"/>
+  <path d="M200 82 L212 82"/>
+  <path d="M200 102 L212 102"/>
+</g>
+<rect x="228" y="66" width="52" height="66" fill="none" stroke="#7a9cc4" stroke-width="1.5" opacity="0.55"/>
+<path d="M228 90 L280 90 M228 108 L280 108" stroke="#7a9cc4" stroke-width="1.1" opacity="0.35"/>
+<text x="20" y="182" font-family="ui-monospace, Menlo, monospace" font-size="12" fill="#dce8f7" opacity="0.85">ZIP</text>
+</svg>

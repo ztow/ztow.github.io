@@ -91,8 +91,8 @@ h1 {
 /* ── 双栏 ── */
 .cols {
   display: grid;
-  grid-template-columns: 5fr 7fr;
-  gap: 0 72px;
+  grid-template-columns: 7fr 5fr;
+  gap: 0 64px;
   align-items: start;
 }
 
@@ -109,46 +109,55 @@ h1 {
   margin-bottom: 6px;
 }
 
-/* ── 项目列表 ── */
+/* ── 项目：4 列卡片 ── */
+.proj-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px 16px;
+}
+
 .proj {
   display: block;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--line);
   text-decoration: none;
   color: inherit;
-  transition: padding-left 0.2s ease;
 }
-.proj:last-child { border-bottom: none; }
 
-.proj-row {
-  display: flex;
-  align-items: baseline;
-  gap: 9px;
+.proj-cover {
+  aspect-ratio: 16 / 10;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--line);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.proj-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .proj-name {
   font-family: var(--mono);
-  font-size: 14.5px;
+  font-size: 12.5px;
   font-weight: 500;
   letter-spacing: -0.01em;
+  margin-top: 10px;
+  line-height: 1.45;
   word-break: break-all;
+  transition: color 0.18s;
 }
 
-.proj-star {
+.proj-date {
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: 11px;
   color: var(--ink-3);
-  white-space: nowrap;
-}
-
-.proj-desc {
-  font-size: 14px;
-  color: var(--ink-2);
-  line-height: 1.6;
   margin-top: 3px;
+  font-variant-numeric: tabular-nums;
 }
 
-.proj:hover { padding-left: 8px; }
+.proj:hover .proj-cover { transform: translateY(-3px); border-color: var(--line-2); }
 .proj:hover .proj-name { color: var(--hover); }
 
 /* ── 文章列表 ── */
@@ -221,6 +230,14 @@ footer a:hover { color: var(--hover); }
   .post-date { padding-top: 0; }
 }
 
+@media (max-width: 1080px) {
+  .proj-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 700px) {
+  .proj-grid { grid-template-columns: repeat(2, 1fr); gap: 20px 14px; }
+}
+
 @media (max-width: 480px) {
   body { padding: 40px 18px 44px; }
   h1 { font-size: 30px; }
@@ -252,42 +269,39 @@ footer a:hover { color: var(--hover); }
 <section class="col-left">
   <h2 class="label">项目</h2>
 
+  <div class="proj-grid">
+
   <a class="proj" href="https://github.com/ztow/genshin-agent-soul">
-    <div class="proj-row">
-      <span class="proj-name">genshin-agent-soul</span>
-      <span class="proj-star">★ 4</span>
-    </div>
-    <p class="proj-desc">原神角色人格蒸馏计划，97 个角色人格文件</p>
+    <div class="proj-cover"><img src="covers/genshin-agent-soul.svg" alt="" loading="lazy"></div>
+    <div class="proj-name">genshin-agent-soul</div>
+    <div class="proj-date">2026.04.19</div>
   </a>
 
   <a class="proj" href="https://github.com/ztow/TrendRader">
-    <div class="proj-row">
-      <span class="proj-name">TrendRader</span>
-    </div>
-    <p class="proj-desc">AI 资讯热点聚合与舆情监控</p>
+    <div class="proj-cover"><img src="covers/TrendRader.svg" alt="" loading="lazy"></div>
+    <div class="proj-name">TrendRader</div>
+    <div class="proj-date">2026.04.17</div>
   </a>
 
   <a class="proj" href="https://github.com/ztow/zw-photo-organizer">
-    <div class="proj-row">
-      <span class="proj-name">zw-photo-organizer</span>
-      <span class="proj-star">★ 1</span>
-    </div>
-    <p class="proj-desc">照片自动分类整理</p>
+    <div class="proj-cover"><img src="covers/zw-photo-organizer.svg" alt="" loading="lazy"></div>
+    <div class="proj-name">zw-photo-organizer</div>
+    <div class="proj-date">2026.03.11</div>
   </a>
 
   <a class="proj" href="https://github.com/ztow/life-log">
-    <div class="proj-row">
-      <span class="proj-name">life-log</span>
-    </div>
-    <p class="proj-desc">每日生活记录汇总系统</p>
+    <div class="proj-cover"><img src="covers/life-log.svg" alt="" loading="lazy"></div>
+    <div class="proj-name">life-log</div>
+    <div class="proj-date">2026.07.12</div>
   </a>
 
   <a class="proj" href="https://github.com/ztow/zipfold">
-    <div class="proj-row">
-      <span class="proj-name">zipfold</span>
-    </div>
-    <p class="proj-desc">macOS 压缩 / 解压工具，开发中</p>
+    <div class="proj-cover"><img src="covers/zipfold.svg" alt="" loading="lazy"></div>
+    <div class="proj-name">zipfold</div>
+    <div class="proj-date">2026.10.13</div>
   </a>
+
+  </div>
 </section>
 
 <section class="col-posts">

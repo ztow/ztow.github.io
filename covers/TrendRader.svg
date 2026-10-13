@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" width="320" height="200">
+<rect width="320" height="200" fill="#14161c"/>
+<g fill="none" stroke="#5fa8d3" stroke-width="2" opacity="0.85" stroke-linecap="round">
+  <path d="M34 150 L34 62"/>
+  <path d="M56 150 L56 42"/>
+  <path d="M78 150 L78 86"/>
+  <path d="M100 150 L100 30"/>
+  <path d="M122 150 L122 74"/>
+  <path d="M144 150 L144 52"/>
+</g>
+<g fill="none" stroke="#5fa8d3" stroke-width="1.4" opacity="0.4">
+  <path d="M34 150 L166 150"/>
+  <path d="M34 108 L166 108" opacity="0.4"/>
+  <path d="M180 46 L288 46" opacity="0.5"/>
+  <path d="M180 62 L264 62" opacity="0.35"/>
+  <path d="M180 78 L278 78" opacity="0.25"/>
+</g>
+<g fill="#c9e4f5" opacity="0.9">
+  <circle cx="100" cy="30" r="4"/>
+  <circle cx="166" cy="108" r="4" opacity="0.7"/>
+</g>
+<path d="M212 96 L212 132 L236 132 L212 168 Z" fill="#5fa8d3" opacity="0.35"/>
+<text x="20" y="182" font-family="ui-monospace, Menlo, monospace" font-size="12" fill="#dcecf7" opacity="0.85">TREND</text>
+</svg>
