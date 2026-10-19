@@ -184,109 +184,50 @@ body.ready h1 .ch { opacity: 1; transform: none; }
 }
 .reveal.in .label .rule, body.ready .label .rule { transform: none; }
 
-/* ── 项目：3 列大卡片 ── */
-.proj-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 26px 22px;
-}
+/* ── 项目：列表（名称 / 更新信息 / 右侧缩略图） ── */
+.proj-list { display: flex; flex-direction: column; }
 
 .proj {
-  position: relative;
-  display: block;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0 30px;
+  align-items: center;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--line);
   text-decoration: none;
   color: inherit;
-  border-radius: 14px;
-  padding: 14px;
-  border: 1px solid var(--line);
-  background: var(--bg);
-  transition: transform 0.55s var(--ease), border-color 0.4s var(--ease),
-              box-shadow 0.55s var(--ease), background 0.4s var(--ease);
-  will-change: transform;
 }
-
-/* 指针聚光 */
-.proj::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 14px;
-  opacity: 0;
-  pointer-events: none;
-  background: radial-gradient(280px circle at var(--px, 50%) var(--py, 50%),
-                              var(--accent-soft), transparent 70%);
-  transition: opacity 0.45s var(--ease);
-}
-.proj:hover::before { opacity: 1; }
-
-/* 顶部描边扫过 */
-.proj::after {
-  content: "";
-  position: absolute;
-  top: 0; left: 14px; right: 14px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  transform: scaleX(0);
-  transition: transform 0.6s var(--ease);
-}
-.proj:hover::after { transform: none; }
-
-.proj-cover {
-  position: relative;
-  aspect-ratio: 16 / 10;
-  border-radius: 9px;
-  overflow: hidden;
-  background: var(--bg-2);
-}
-.proj-cover img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scale(1.001);
-  transition: transform 0.85s var(--ease), filter 0.6s var(--ease);
-}
-.proj:hover .proj-cover img { transform: scale(1.07); }
-
-.proj-cover .sheen {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(115deg, transparent 34%, rgba(255,255,255,0.22) 48%, transparent 62%);
-  transform: translateX(-120%);
-  transition: transform 0.9s var(--ease);
-  pointer-events: none;
-}
-.proj:hover .sheen { transform: translateX(120%); }
+.proj:first-child { padding-top: 2px; }
+.proj:last-child { border-bottom: none; padding-bottom: 0; }
 
 .proj-name {
-  font-family: var(--mono);
-  font-size: 13.5px;
-  font-weight: 500;
-  letter-spacing: -0.012em;
-  margin-top: 14px;
-  line-height: 1.45;
-  word-break: break-all;
+  font-family: var(--serif);
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.32;
+  letter-spacing: 0.01em;
   transition: color 0.3s var(--ease);
 }
 
 .proj-desc {
-  font-size: 13.5px;
+  font-size: 14.5px;
   color: var(--ink-2);
-  line-height: 1.62;
-  margin-top: 6px;
-  min-height: 3.2em;
+  line-height: 1.66;
+  margin-top: 7px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .proj-updated {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 12px;
   color: var(--ink-3);
-  margin-top: 12px;
-  padding-top: 11px;
-  border-top: 1px dashed var(--line);
+  margin-top: 11px;
   font-variant-numeric: tabular-nums;
 }
 .proj-updated .pulse {
@@ -301,12 +242,25 @@ body.ready h1 .ch { opacity: 1; transform: none; }
   50% { opacity: 1; transform: scale(1.12); }
 }
 
-.proj:hover {
-  transform: translateY(-6px);
-  border-color: var(--line-2);
-  box-shadow: 0 18px 44px -24px rgba(0, 0, 0, 0.42);
+.proj-thumb {
+  width: 152px;
+  aspect-ratio: 16 / 10;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  flex: none;
 }
+.proj-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.85s var(--ease);
+}
+
 .proj:hover .proj-name { color: var(--accent); }
+.proj:hover .proj-thumb img { transform: scale(1.06); }
 
 /* ── 文章列表 ── */
 .post {
@@ -414,22 +368,24 @@ footer .copy { margin-left: auto; letter-spacing: 0.08em; }
   .cols { grid-template-columns: 1fr; gap: 56px; }
   .col-left { position: static; }
   .col-posts { order: -1; }
-  .proj-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 860px) {
   body { padding: 56px 24px; }
   .wrap { max-width: 560px; }
   .masthead { margin-bottom: 52px; }
+  .proj-thumb { width: 124px; }
 }
 @media (max-width: 560px) {
   body { padding: 40px 18px 44px; }
   h1 { font-size: 32px; }
   .tagline { font-size: 15px; }
-  .proj-grid { grid-template-columns: 1fr; gap: 20px; }
-  .proj-desc { min-height: 0; }
+  .proj { padding: 22px 0; gap: 0 18px; }
+  .proj-name { font-size: 18px; }
+  .proj-desc { font-size: 13.5px; }
+  .proj-thumb { width: 88px; }
 }
 @media (max-width: 380px) {
-  .proj-grid { grid-template-columns: 1fr; }
+  .proj-thumb { width: 76px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -462,56 +418,51 @@ footer .copy { margin-left: auto; letter-spacing: 0.08em; }
 <section class="col-left">
   <h2 class="label">项目<span class="rule"></span></h2>
 
-  <div class="proj-grid">
+  <div class="proj-list" id="proj-list">
 
-  <a class="proj reveal" style="--d:80ms" href="https://github.com/ztow/genshin-agent-soul">
-    <div class="proj-cover">
-      <img src="covers/genshin-agent-soul.svg" alt="" loading="lazy">
-      <span class="sheen"></span>
+  <a class="proj" href="https://github.com/ztow/zw-photo-organizer">
+    <div class="proj-text">
+      <div class="proj-name">zw-photo-organizer</div>
+      <p class="proj-desc">v2.1.0: 按月归档，不再按日分目录 - 目标目录由「整理后照片/年/年月/年月日」改为「整理后照片/年/年月」，一个月照片放在一起，一天多张（如游玩照片）由用户自行细分 - 日期识别、双台账、按台账清理流程不变（台账仍记录完整日期，细分时可参考） - 更新 SKILL.md / README …</p>
+      <div class="proj-updated"><span class="pulse"></span>最新更新于 2026-10-19</div>
     </div>
-    <div class="proj-name">genshin-agent-soul</div>
-    <p class="proj-desc">原神角色人格蒸馏计划，97 个高拟真 AI 角色人格文件</p>
-    <div class="proj-updated"><span class="pulse"></span>最新更新于 2026 年 4 月 19 日</div>
+    <div class="proj-thumb"><img src="covers/zw-photo-organizer.svg" alt="" loading="lazy"></div>
   </a>
 
-  <a class="proj reveal" style="--d:140ms" href="https://github.com/ztow/TrendRader">
-    <div class="proj-cover">
-      <img src="covers/TrendRader.svg" alt="" loading="lazy">
-      <span class="sheen"></span>
+  <a class="proj" href="https://github.com/ztow/zipfold">
+    <div class="proj-text">
+      <div class="proj-name">zipfold</div>
+      <p class="proj-desc">初始化：项目说明占位</p>
+      <div class="proj-updated"><span class="pulse"></span>最新更新于 2026-10-13</div>
     </div>
-    <div class="proj-name">TrendRader</div>
-    <p class="proj-desc">AI 资讯热点聚合与舆情监控，多平台追踪与自然语言分析</p>
-    <div class="proj-updated"><span class="pulse"></span>最新更新于 2026 年 4 月 17 日</div>
+    <div class="proj-thumb"><img src="covers/zipfold.svg" alt="" loading="lazy"></div>
   </a>
 
-  <a class="proj reveal" style="--d:200ms" href="https://github.com/ztow/zw-photo-organizer">
-    <div class="proj-cover">
-      <img src="covers/zw-photo-organizer.svg" alt="" loading="lazy">
-      <span class="sheen"></span>
+  <a class="proj" href="https://github.com/ztow/life-log">
+    <div class="proj-text">
+      <div class="proj-name">life-log</div>
+      <p class="proj-desc">docs: 日期优先级调整（目录名 &gt; EXIF &gt; 文件系统时间）</p>
+      <div class="proj-updated"><span class="pulse"></span>最新更新于 2026-07-12</div>
     </div>
-    <div class="proj-name">zw-photo-organizer</div>
-    <p class="proj-desc">智能照片整理，支持四级日期识别与自动分类</p>
-    <div class="proj-updated"><span class="pulse"></span>最新更新于 2026 年 3 月 11 日</div>
+    <div class="proj-thumb"><img src="covers/life-log.svg" alt="" loading="lazy"></div>
   </a>
 
-  <a class="proj reveal" style="--d:260ms" href="https://github.com/ztow/life-log">
-    <div class="proj-cover">
-      <img src="covers/life-log.svg" alt="" loading="lazy">
-      <span class="sheen"></span>
+  <a class="proj" href="https://github.com/ztow/genshin-agent-soul">
+    <div class="proj-text">
+      <div class="proj-name">genshin-agent-soul</div>
+      <p class="proj-desc">feat: 补全安柏、米卡两个角色，总计97个角色SOUL.md完成</p>
+      <div class="proj-updated"><span class="pulse"></span>最新更新于 2026-04-19</div>
     </div>
-    <div class="proj-name">life-log</div>
-    <p class="proj-desc">每日生活记录汇总，把当日媒体文件整理成一篇日志</p>
-    <div class="proj-updated"><span class="pulse"></span>最新更新于 2026 年 7 月 12 日</div>
+    <div class="proj-thumb"><img src="covers/genshin-agent-soul.svg" alt="" loading="lazy"></div>
   </a>
 
-  <a class="proj reveal" style="--d:320ms" href="https://github.com/ztow/zipfold">
-    <div class="proj-cover">
-      <img src="covers/zipfold.svg" alt="" loading="lazy">
-      <span class="sheen"></span>
+  <a class="proj" href="https://github.com/ztow/TrendRader">
+    <div class="proj-text">
+      <div class="proj-name">TrendRader</div>
+      <p class="proj-desc">Auto update by GitHub Actions at Fri Apr 17 12:14:11 CST 2026</p>
+      <div class="proj-updated"><span class="pulse"></span>最新更新于 2026-04-17</div>
     </div>
-    <div class="proj-name">zipfold</div>
-    <p class="proj-desc">macOS 压缩 / 解压工具，访达右键入口，开发中</p>
-    <div class="proj-updated"><span class="pulse"></span>最新更新于 2026 年 10 月 13 日</div>
+    <div class="proj-thumb"><img src="covers/TrendRader.svg" alt="" loading="lazy"></div>
   </a>
 
   </div>
@@ -594,35 +545,6 @@ footer .copy { margin-left: auto; letter-spacing: 0.08em; }
       document.body.style.setProperty('--my', cy + 'px');
       raf = Math.abs(rx - cx) > 0.5 || Math.abs(ry - cy) > 0.5 ? requestAnimationFrame(loop) : 0;
     }
-
-    document.querySelectorAll('.proj').forEach(function (card) {
-      card.addEventListener('pointermove', function (e) {
-        var r = card.getBoundingClientRect();
-        card.style.setProperty('--px', (e.clientX - r.left) + 'px');
-        card.style.setProperty('--py', (e.clientY - r.top) + 'px');
-      });
-    });
-  }
-
-  /* ── 卡片 3D 微倾斜 ── */
-  if (!reduced && matchMedia('(pointer: fine)').matches) {
-    document.querySelectorAll('.proj').forEach(function (card) {
-      var raf2 = 0;
-      card.addEventListener('pointermove', function (e) {
-        if (raf2) return;
-        raf2 = requestAnimationFrame(function () {
-          var r = card.getBoundingClientRect();
-          var px = (e.clientX - r.left) / r.width - 0.5;
-          var py = (e.clientY - r.top) / r.height - 0.5;
-          card.style.transform =
-            'translateY(-6px) rotateX(' + (-py * 3.2) + 'deg) rotateY(' + (px * 3.8) + 'deg)';
-          raf2 = 0;
-        });
-      });
-      card.addEventListener('pointerleave', function () {
-        card.style.transform = '';
-      });
-    });
   }
 
   /* ── 顶部进度条（scroll-driven 不支持时的回退） ── */
@@ -637,6 +559,181 @@ footer .copy { margin-left: auto; letter-spacing: 0.08em; }
     addEventListener('resize', tick);
     tick();
   }
+
+  /* ── 项目列表：抓 GitHub 最新提交 ── */
+  var REPOS = [
+    { name: 'genshin-agent-soul', cover: 'covers/genshin-agent-soul.svg' },
+    { name: 'TrendRader', cover: 'covers/TrendRader.svg' },
+    { name: 'zw-photo-organizer', cover: 'covers/zw-photo-organizer.svg' },
+    { name: 'life-log', cover: 'covers/life-log.svg' },
+    { name: 'zipfold', cover: 'covers/zipfold.svg' }
+  ];
+  /* 抓取失败时的兜底数据（与静态 HTML 一致） */
+  var FALLBACK = [
+    { name: 'zw-photo-organizer', cover: 'covers/zw-photo-organizer.svg', url: 'https://github.com/ztow/zw-photo-organizer', message: 'v2.1.0: 按月归档，不再按日分目录 - 目标目录由「整理后照片/年/年月/年月日」改为「整理后照片/年/年月」，一个月照片放在一起，一天多张（如游玩照片）由用户自行细分 - 日期识别、双台账、按台账清理流程不变（台账仍记录完整日期，细分时可参考） - 更新 SKILL.md / README …', date: '2026-10-19', ts: 1792406148000 },
+    { name: 'zipfold', cover: 'covers/zipfold.svg', url: 'https://github.com/ztow/zipfold', message: '初始化：项目说明占位', date: '2026-10-13', ts: 1791864356000 },
+    { name: 'life-log', cover: 'covers/life-log.svg', url: 'https://github.com/ztow/life-log', message: 'docs: 日期优先级调整（目录名 > EXIF > 文件系统时间）', date: '2026-07-12', ts: 1783816785000 },
+    { name: 'genshin-agent-soul', cover: 'covers/genshin-agent-soul.svg', url: 'https://github.com/ztow/genshin-agent-soul', message: 'feat: 补全安柏、米卡两个角色，总计97个角色SOUL.md完成', date: '2026-04-19', ts: 1776607811000 },
+    { name: 'TrendRader', cover: 'covers/TrendRader.svg', url: 'https://github.com/ztow/TrendRader', message: 'Auto update by GitHub Actions at Fri Apr 17 12:14:11 CST 2026', date: '2026-04-17', ts: 1776399251000 }
+  ];
+  var CACHE_KEY = 'ztow-projects', TTL = 10 * 60 * 1000;
+
+  function readCache() {
+    try { return JSON.parse(localStorage.getItem(CACHE_KEY)); } catch (e) { return null; }
+  }
+  function writeCache(o) {
+    try { localStorage.setItem(CACHE_KEY, JSON.stringify(o)); } catch (e) {}
+  }
+
+  function relTime(ts) {
+    var mins = Math.floor((Date.now() - ts) / 60000);
+    if (mins < 1) return '刚刚';
+    if (mins < 60) return mins + ' 分钟前';
+    var h = Math.floor(mins / 60);
+    if (h < 24) return h + ' 小时前';
+    var d = Math.floor(h / 24);
+    if (d < 30) return d + ' 天前';
+    return Math.floor(d / 30) + ' 个月前';
+  }
+
+  /* 优先取最近一条非机器人提交；最近几条全是机器人就用最新一条 */
+  function pickCommit(list) {
+    for (var i = 0; i < list.length; i++) {
+      var login = (list[i].author && list[i].author.login) || '';
+      if (login !== 'actions-user') return list[i];
+    }
+    return list[0];
+  }
+
+  function renderProjects(items) {
+    var box = document.getElementById('proj-list');
+    if (!box) return;
+    box.textContent = '';
+    var frag = document.createDocumentFragment();
+
+    items.forEach(function (p) {
+      var a = document.createElement('a');
+      a.className = 'proj';
+      a.href = p.url;
+
+      var text = document.createElement('div');
+      text.className = 'proj-text';
+
+      var name = document.createElement('div');
+      name.className = 'proj-name';
+      name.textContent = p.name;
+
+      var desc = document.createElement('p');
+      desc.className = 'proj-desc';
+      desc.textContent = p.message;
+
+      var meta = document.createElement('div');
+      meta.className = 'proj-updated';
+      var dot = document.createElement('span');
+      dot.className = 'pulse';
+      meta.appendChild(dot);
+      meta.appendChild(document.createTextNode('最新更新于 ' + p.date + ' · ' + relTime(p.ts)));
+
+      text.appendChild(name);
+      text.appendChild(desc);
+      text.appendChild(meta);
+
+      var thumb = document.createElement('div');
+      thumb.className = 'proj-thumb';
+      var img = document.createElement('img');
+      img.src = p.cover;
+      img.alt = '';
+      img.loading = 'lazy';
+      thumb.appendChild(img);
+
+      a.appendChild(text);
+      a.appendChild(thumb);
+      frag.appendChild(a);
+    });
+
+    box.appendChild(frag);
+  }
+
+  /* 单个仓库抓取失败时：先用缓存旧值，再用静态兜底 */
+  function fallbackItem(name) {
+    var cache = readCache();
+    if (cache && cache.items) {
+      for (var i = 0; i < cache.items.length; i++) {
+        if (cache.items[i].name === name) return cache.items[i];
+      }
+    }
+    for (var j = 0; j < FALLBACK.length; j++) {
+      if (FALLBACK[j].name === name) return FALLBACK[j];
+    }
+    return null;
+  }
+
+  function refreshProjects() {
+    var cache = readCache();
+    if (cache && cache.items && Date.now() - cache.fetchedAt < TTL) {
+      renderProjects(cache.items);   /* 10 分钟内抓过：0 请求 */
+      return;
+    }
+
+    var jobs = REPOS.map(function (r) {
+      var url = 'https://api.github.com/repos/ztow/' + r.name + '/commits?per_page=5';
+      var headers = {};
+      if (cache && cache.etags && cache.etags[r.name]) {
+        headers['If-None-Match'] = cache.etags[r.name];
+      }
+      return fetch(url, { headers: headers }).then(function (resp) {
+        if (resp.status === 304 && cache && cache.etags && cache.etags[r.name]) {
+          var old = fallbackItem(r.name);   /* 无更新：不扣配额，用旧数据 */
+          if (old) return { item: old, etag: cache.etags[r.name] };
+        }
+        if (!resp.ok) throw new Error('http ' + resp.status);
+        return resp.json().then(function (list) {
+          var c = pickCommit(list);
+          var msg = (c.commit.message || '').replace(/\s+/g, ' ').trim();
+          if (msg.length > 150) msg = msg.slice(0, 150) + '…';
+          var ts = new Date(c.commit.author.date).getTime();
+          var d = new Date(ts);
+          return {
+            item: {
+              name: r.name,
+              cover: r.cover,
+              url: 'https://github.com/ztow/' + r.name,
+              message: msg,
+              date: d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' +
+                     ('0' + d.getDate()).slice(-2),
+              ts: ts
+            },
+            etag: resp.headers.get('ETag')
+          };
+        });
+      }).catch(function () {
+        var fb = fallbackItem(r.name);
+        return fb ? { item: fb } : null;
+      });
+    });
+
+    Promise.all(jobs).then(function (results) {
+      var items = [], fresh = {};
+      results.forEach(function (r) {
+        if (!r) return;
+        items.push(r.item);
+        if (r.etag) fresh[r.item.name] = r.etag;
+      });
+      if (!items.length) return;   /* 全部失败：保留静态列表 */
+
+      items.sort(function (a, b) { return b.ts - a.ts; });   /* 新 → 旧 */
+
+      var etags = {};
+      if (cache && cache.etags) {
+        for (var k in cache.etags) etags[k] = cache.etags[k];
+      }
+      for (var n in fresh) etags[n] = fresh[n];
+
+      writeCache({ fetchedAt: Date.now(), etags: etags, items: items });
+      renderProjects(items);
+    });
+  }
+  refreshProjects();
 
   /* ── 抓取并渲染文章 ── */
   var FEED = 'https://ztow.me/feed.xml';
